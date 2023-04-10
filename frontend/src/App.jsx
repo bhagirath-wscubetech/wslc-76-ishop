@@ -10,7 +10,7 @@ import AddCategory from "./Pages/Admin/Category/Add";
 import ViewCategory from "./Pages/Admin/Category/View";
 import AddProduct from "./Pages/Admin/Product/Add";
 import ViewProduct from "./Pages/Admin/Category/View";
-
+import ContextHolder from "./Context/ContextHolder";
 
 const router = createBrowserRouter([
   {
@@ -46,11 +46,11 @@ const router = createBrowserRouter([
 ]);
 function App() {
   return (
-    <>
+    <ContextHolder>
       {/* Group of Admin */}
       <RouterProvider router={router} />
       {/* Group of Website */}
-    </>
+    </ContextHolder>
   );
 }
 
