@@ -1,18 +1,32 @@
 import React, { useContext, useRef } from 'react'
 import { MainContext } from '../../../Context/ContextHolder';
+import { addCategory } from '../../../Apis/category';
+
 export default function Add() {
   const { notify } = useContext(MainContext)
   const slugBox = useRef();
   const getData = (event) => {
-    console.clear();
-    slugBox.current.value = event.target.value.toLowerCase().split(" ").join("-");
-    if (false) {
-      // success
-      notify("Success", true);
-    } else {
-      // fail
-      notify("Errro", false);
-    }
+    const arr = event.target.value.toLowerCase().split(" ");
+    slugBox.current.value = arr.length > 1 ? arr.join("-") : arr.toString();
+  }
+
+  const submitForm = (event) => {
+    event.preventDefault();
+    addCategory({
+      name: event.target.category_name.value,
+      slug: event.target.category_slug.value
+    })
+      .then(
+        (success) => {
+          notify(success.data.msg, success.data.status);
+          event.target.reset();
+        }
+      )
+      .catch(
+        (error) => {
+          notify(error.data.msg, error.data.status);
+        }
+      )
   }
   return (
     <div className='container mt-5'>
@@ -22,7 +36,7 @@ export default function Add() {
         </div>
         <hr />
         <div className="card-body">
-          <form action="">
+          <form action="" onSubmit={submitForm}>
             <div className="row">
               <div className="col-12 mb-3">
                 <label htmlFor="" className="form-label">Category Name</label>
