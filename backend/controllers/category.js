@@ -74,6 +74,36 @@ class CategoryController {
             }
         )
     }
+    deleteData = (id) => {
+        return new Promise(
+            (resolve, reject) => {
+                try {
+                    Category.deleteOne({ _id: id })
+                        .then(
+                            () => {
+                                resolve({
+                                    msg: "Data deleted",
+                                    status: 1
+                                });
+                            }
+                        ).catch(
+                            () => {
+                                reject({
+                                    msg: "Unable to delete the data",
+                                    status: 0
+                                });
+                            }
+                        )
+                }
+                catch (err) {
+                    reject({
+                        msg: "Internal server error",
+                        status: 0
+                    });
+                }
+            }
+        )
+    }
 }
 
 module.exports = CategoryController;

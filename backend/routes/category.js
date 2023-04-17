@@ -32,4 +32,20 @@ Router.post(
     }
 )
 
+Router.delete(
+    "/:id",
+    (req, res) => {
+        new CategoryController().deleteData(req.params.id)
+            .then(
+                (success) => {
+                    res.send(success);
+                }
+            ).catch(
+                (error) => {
+                    res.send(error);
+                }
+            )
+    }
+)
+
 module.exports = Router;
