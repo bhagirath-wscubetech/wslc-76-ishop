@@ -50,15 +50,17 @@ class CategoryController {
                         } else {
                             resolve({
                                 status: 1,
-                                data
+                                category: data
                             });
                         }
 
                     } else {
-                        let data = await Category.find();
+                        let data = await Category.find().sort({
+                            _id: 'desc'
+                        });
                         resolve({
                             status: 1,
-                            data,
+                            category: data,
                             msg: `Total ${data.length} records found`
                         });
                     }

@@ -22,4 +22,22 @@ const addCategory = (data) => {
     )
 }
 
-export { addCategory };
+const getCategory = () => {
+    return new Promise(
+        (resolve, reject) => {
+            axios.get(process.env.REACT_APP_API_BASE_URL + moduleUrl)
+                .then(
+                    (success) => {
+                        resolve(success);
+                    }
+                )
+                .catch(
+                    (error) => {
+                        reject(error);
+                    }
+                )
+        }
+    )
+}
+
+export { addCategory, getCategory };
