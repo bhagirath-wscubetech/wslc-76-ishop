@@ -9,6 +9,9 @@ const CategorySchema = new mongoose.Schema(
         slug: {
             type: "String",
             max: 120
+        },
+        image: {
+            type: "String"
         }
     }
 )

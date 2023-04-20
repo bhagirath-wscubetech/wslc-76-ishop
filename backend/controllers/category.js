@@ -1,4 +1,5 @@
 const Category = require('../models/category.js');
+
 class CategoryController {
     save = (data) => {
         return new Promise(
@@ -8,6 +9,7 @@ class CategoryController {
                         {
                             name: data.name,
                             slug: data.slug,
+                            image: data.image
                         }
                     )
                     category.save()
@@ -50,7 +52,8 @@ class CategoryController {
                         } else {
                             resolve({
                                 status: 1,
-                                category: data
+                                category: data,
+                                path: "http://localhost:5000/uploads/category/",
                             });
                         }
 
@@ -61,6 +64,7 @@ class CategoryController {
                         resolve({
                             status: 1,
                             category: data,
+                            path: "http://localhost:5000/uploads/category/",
                             msg: `Total ${data.length} records found`
                         });
                     }

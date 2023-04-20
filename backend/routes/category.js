@@ -1,5 +1,7 @@
 const express = require('express');
 const CategoryController = require('../controllers/category.js');
+const fileUpload = require('express-fileupload');
+const { getRandomImageName, getImageDest } = require('../helper.js');
 const Router = express.Router();
 Router.get(
     "/:id?",
@@ -18,17 +20,34 @@ Router.get(
 )
 Router.post(
     "/",
+    fileUpload(
+        { createParentPath: true }
+    ),
     (req, res) => {
-        const response = new CategoryController().save(req.body);
-        response.then(
-            (success) => {
-                res.send(success)
-            }
-        ).catch(
-            (error) => {
-                res.send(error)
-            }
-        )
+        const image = req.files.image;
+        const imageName = getRandomImageName(image.name);
+        const destination = getImageDest('category') + imageName;
+        try {
+            image.mv(destination);
+            const response = new CategoryController().save(
+                { image: imageName, ...req.body }
+            );
+            response.then(
+                (success) => {
+                    res.send(success)
+                }
+            ).catch(
+                (error) => {
+                    res.send(error)
+                }
+            )
+        } catch (err) {
+            res.send({
+                msg: "Unable to add data",
+                status: 0
+            })
+        }
+
     }
 )
 

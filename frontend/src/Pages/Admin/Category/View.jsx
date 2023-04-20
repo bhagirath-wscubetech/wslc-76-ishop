@@ -6,7 +6,7 @@ import { BsFillPencilFill } from "react-icons/bs";
 export default function View() {
   const [categoryData, setCategoryData] = useState([]);
   const { toggleLoader } = useContext(MainContext);
-
+  const [imagePath, setPath] = useState("");
   let sr = 0;
 
   useEffect(
@@ -16,6 +16,7 @@ export default function View() {
         .then(
           (success) => {
             setCategoryData(success.data.category);
+            setPath(success.data.path);
             toggleLoader(false);
           }
         )
@@ -38,6 +39,7 @@ export default function View() {
             <th scope="col">Sr</th>
             <th scope="col">Name</th>
             <th scope="col">Slug</th>
+            <th>Image</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -46,7 +48,7 @@ export default function View() {
             categoryData.map(
               (d) => {
                 sr++;
-                return <TableRow key={d._id} data={{ sr, ...d }} />
+                return <TableRow key={d._id} data={{ sr, ...d, imagePath }} />
               }
             )
           }
@@ -63,6 +65,9 @@ const TableRow = ({ data }) => {
     <td>{data.sr}</td>
     <td>{data.name}</td>
     <td>{data.slug}</td>
+    <td>
+      <img src={data.imagePath + data.image} alt="" />
+    </td>
     <td>
       <AiFillDelete style={{ color: "red" }} />
       {"    "}

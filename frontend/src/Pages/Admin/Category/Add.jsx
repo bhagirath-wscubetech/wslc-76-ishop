@@ -12,10 +12,11 @@ export default function Add() {
 
   const submitForm = (event) => {
     event.preventDefault();
-    addCategory({
-      name: event.target.category_name.value,
-      slug: event.target.category_slug.value
-    })
+    const formData = new FormData();
+    formData.append("name", event.target.category_name.value);
+    formData.append("slug", event.target.category_slug.value);
+    formData.append("image", event.target.image.files[0]);
+    addCategory(formData)
       .then(
         (success) => {
           notify(success.data.msg, success.data.status);
@@ -36,7 +37,7 @@ export default function Add() {
         </div>
         <hr />
         <div className="card-body">
-          <form action="" onSubmit={submitForm}>
+          <form action="" onSubmit={submitForm} encType='multipart/form-data'>
             <div className="row">
               <div className="col-12 mb-3">
                 <label htmlFor="" className="form-label">Category Name</label>
@@ -45,6 +46,10 @@ export default function Add() {
               <div className="col-12 mb-3">
                 <label htmlFor="" className="form-label">Category Slug</label>
                 <input type="text" name="category_slug" className="form-control" readOnly={true} ref={slugBox} placeholder="Category slug" />
+              </div>
+              <div className="col-12 mb-3">
+                <label htmlFor="" className="form-label">Category Image</label>
+                <input type="file" name="image" className='form-control' />
               </div>
               <div>
                 <button className='btn btn-primary'>Save</button>
