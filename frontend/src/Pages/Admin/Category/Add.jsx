@@ -20,7 +20,7 @@ export default function Add() {
       .then(
         (success) => {
           notify(success.data.msg, success.data.status);
-          event.target.reset();
+          if (success.data.status == 1) event.target.reset();
         }
       )
       .catch(

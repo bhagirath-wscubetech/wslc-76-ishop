@@ -40,4 +40,21 @@ const getCategory = () => {
     )
 }
 
-export { addCategory, getCategory };
+const deleteCategory = (id, imgName) => {
+    return new Promise(
+        (resolve, reject) => {
+            axios.delete(process.env.REACT_APP_API_BASE_URL + moduleUrl + "/" + id + "/" + imgName)
+                .then(
+                    (success) => {
+                        resolve(success);
+                    }
+                )
+                .catch(
+                    (error) => {
+                        reject(error);
+                    }
+                )
+        }
+    )
+}
+export { addCategory, getCategory, deleteCategory };

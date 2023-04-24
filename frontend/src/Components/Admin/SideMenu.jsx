@@ -40,9 +40,9 @@ export default function SideMenu() {
     ]
 
     return (
-        <Col xs={2} style={{ background: "#4e73df", height: "100vh" }}>
+        <Col xs={2} style={{ background: "#4e73df", minHeight: "100vh" }}>
             <h3 className='text-center text-white py-2'>iShop</h3>
-            <ul className='px-3 list-unstyled text-white'>
+            <ul className='px-3 list-unstyled text-white sticky-top'>
                 {
                     menus.map(
                         (menu) => {

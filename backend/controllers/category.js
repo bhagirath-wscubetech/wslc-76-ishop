@@ -1,5 +1,6 @@
 const Category = require('../models/category.js');
-
+const fs = require('fs');
+const path = require('path');
 class CategoryController {
     save = (data) => {
         return new Promise(
@@ -78,20 +79,24 @@ class CategoryController {
             }
         )
     }
-    deleteData = (id) => {
+    deleteData = (id, imgName) => {
         return new Promise(
-            (resolve, reject) => {
+            async (resolve, reject) => {
                 try {
+
                     Category.deleteOne({ _id: id })
                         .then(
                             () => {
+                                const imagePath = path.join(__dirname, "../", "public/uploads/category", imgName);
+                                fs.unlinkSync(imagePath); //delete
                                 resolve({
                                     msg: "Data deleted",
                                     status: 1
                                 });
                             }
                         ).catch(
-                            () => {
+                            (error) => {
+                                console.log(error);
                                 reject({
                                     msg: "Unable to delete the data",
                                     status: 0
@@ -100,6 +105,7 @@ class CategoryController {
                         )
                 }
                 catch (err) {
+                    console.log(err.message);
                     reject({
                         msg: "Internal server error",
                         status: 0
