@@ -114,6 +114,34 @@ class CategoryController {
             }
         )
     }
+
+    updateData = (id, newData) => {
+        return new Promise(
+            (resolve, reject) => {
+                Category.updateOne(
+                    {
+                        _id: id
+                    },
+                    newData
+                ).then(
+                    (success) => {
+                        resolve({
+                            msg: "Data updated",
+                            status: 1
+                        });
+                    }
+                ).catch(
+                    (error) => {
+                        reject({
+                            msg: "Unable to update the data",
+                            status: 0
+                        });
+                    }
+                )
+            }
+        )
+    }
+
 }
 
 module.exports = CategoryController;

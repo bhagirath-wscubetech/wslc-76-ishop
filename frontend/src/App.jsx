@@ -7,11 +7,11 @@ import Admin from "./Components/Admin/Index";
 import Home from "./Pages/Website/Index";
 import Dashboard from "./Pages/Admin/Dashboard";
 import AddCategory from "./Pages/Admin/Category/Add";
+import EditCategory from "./Pages/Admin/Category/Edit";
 import ViewCategory from "./Pages/Admin/Category/View";
 import AddProduct from "./Pages/Admin/Product/Add";
 import ViewProduct from "./Pages/Admin/Category/View";
 import ContextHolder from "./Context/ContextHolder";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,8 +30,12 @@ const router = createBrowserRouter([
         element: <ViewCategory />
       },
       {
-        path: "category/add",
+        path: "category/add/",
         element: <AddCategory />
+      },
+      {
+        path: "category/edit/:id",
+        element: <EditCategory />
       },
       {
         path: "product/add",

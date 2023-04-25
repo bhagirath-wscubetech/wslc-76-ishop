@@ -2,6 +2,8 @@ const express = require('express');
 const CategoryController = require('../controllers/category.js');
 const fileUpload = require('express-fileupload');
 const { getRandomImageName, getImageDest } = require('../helper.js');
+const path = require('path');
+const fs = require('fs');
 const Router = express.Router();
 Router.get(
     "/:id?",
@@ -78,4 +80,41 @@ Router.delete(
     }
 )
 
+Router.post(
+    '/update/:id',
+    fileUpload(
+        { createParentPath: true }
+    ),
+    (req, res) => {
+        let imageName = req.body.old_image_name; // this is the old name
+        const image = req.files?.image;
+        if (image !== undefined) {
+            imageName = getRandomImageName(image.name);
+            const destination = getImageDest('category') + imageName;
+            try {
+                image.mv(destination);
+                const imagePath = path.join(__dirname, "../", "public/uploads/category", req.body.old_image_name);
+                fs.unlinkSync(imagePath); //delete
+            } catch (err) {
+                console.log(err.message);
+                return res.send({ msg: "Internal server error", status: 0 });
+            }
+        }
+        const newData = {
+            name: req.body.name,
+            slug: req.body.slug,
+            image: imageName
+        };
+        new CategoryController().updateData(req.params.id, newData)
+            .then(
+                (success) => {
+                    res.send(success);
+                }
+            ).catch(
+                (error) => {
+                    res.send(error);
+                }
+            )
+    }
+)
 module.exports = Router;

@@ -3,6 +3,7 @@ import { getCategory, deleteCategory } from '../../../Apis/category';
 import { MainContext } from '../../../Context/ContextHolder';
 import { AiFillDelete } from "react-icons/ai";
 import { BsFillPencilFill } from "react-icons/bs";
+import { Link } from 'react-router-dom';
 export default function View() {
   const [categoryData, setCategoryData] = useState([]);
   const { toggleLoader } = useContext(MainContext);
@@ -11,8 +12,8 @@ export default function View() {
   let sr = 0;
 
 
-  const deleteHandler = (id,imgName) => {
-    deleteCategory(id,imgName)
+  const deleteHandler = (id, imgName) => {
+    deleteCategory(id, imgName)
       .then(
         (success) => {
           notify(success.data.msg, success.data.status);
@@ -102,7 +103,9 @@ const TableRow = ({ data, del }) => {
     <td>
       <AiFillDelete style={{ color: "red" }} onClick={del} />
       {"    "}
-      <BsFillPencilFill />
+      <Link to={`/admin/category/edit/${data._id}`}>
+        <BsFillPencilFill />
+      </Link>
     </td>
   </tr>
 }
