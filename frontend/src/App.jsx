@@ -12,10 +12,16 @@ import ViewCategory from "./Pages/Admin/Category/View";
 import AddProduct from "./Pages/Admin/Product/Add";
 import ViewProduct from "./Pages/Admin/Product/View";
 import ContextHolder from "./Context/ContextHolder";
+import Login from "./Pages/Admin/Login";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/admin/login",
+    element: <Login />
   },
   {
     path: "/admin",

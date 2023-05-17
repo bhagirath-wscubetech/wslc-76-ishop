@@ -144,6 +144,34 @@ class ProductController {
         )
     }
 
+    categoryProduct = (cid) => {
+    console.log(cid);
+        return new Promise(
+            async (resolve, rejected) => {
+                try {
+                    let data = await Product.find({
+                        'category_id': cid
+                    }).sort({
+                        _id: 'desc'
+                    });
+                    resolve({
+                        status: 1,
+                        product: data,
+                        path: "http://localhost:5000/uploads/product/",
+                        msg: `Total ${data.length} records found`
+                    });
+
+                }
+                catch (err) {
+                    rejected({
+                        status: 0,
+                        msg: err.message + "Interal server error"
+                    });
+                }
+            }
+        )
+    }
+
 }
 
 module.exports = ProductController;

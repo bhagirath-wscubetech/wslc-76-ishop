@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Col from 'react-bootstrap/Col';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { MainContext } from '../../Context/ContextHolder';
+import { useContext } from 'react';
 export default function SideMenu() {
-
+    const { admin, setAdmin } = useContext(MainContext);
+    const navigate = useNavigate();
     const menus = [
         {
             name: "Dashboard",
@@ -38,6 +41,17 @@ export default function SideMenu() {
             ]
         }
     ]
+
+    useEffect(
+        () => {
+            console.log(admin);
+            if (admin == false) {
+                navigate('/admin/login');
+            }
+        },
+        []
+    )
+
 
     return (
         <Col xs={2} style={{ background: "#4e73df", minHeight: "100vh" }}>

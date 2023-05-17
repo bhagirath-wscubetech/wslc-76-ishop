@@ -20,6 +20,21 @@ Router.get(
         )
     }
 )
+Router.get(
+    "/category/:cid",
+    (req, res) => {
+        const response = new ProductController().categoryProduct(req.params.cid);
+        response.then(
+            (success) => {
+                res.send(success)
+            }
+        ).catch(
+            (error) => {
+                res.send(error)
+            }
+        )
+    }
+)
 Router.post(
     "/",
     fileUpload(

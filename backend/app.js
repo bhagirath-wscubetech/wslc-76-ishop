@@ -18,7 +18,12 @@ app.use("/product", ProductRouter);
 
 // ------------
 mongoose.connect(
-    'mongodb+srv://bhagirath:XbPcys1BefQkdgMj@cluster0.oiuxnke.mongodb.net/?retryWrites=true&w=majority'
+    "mongodb://0.0.0.0:27017",
+    {
+        dbName: "ishop",
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    }
 ).then(
     () => {
         app.listen(

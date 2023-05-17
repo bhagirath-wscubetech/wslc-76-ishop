@@ -1,0 +1,87 @@
+@media only screen and (max-width: 480px) {
+  .top-container .row:nth-child(1) {
+    display: none;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.474);
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 100%;
+    z-index: 999;
+    transition: 0.5s;
+  }
+
+  .menu a {
+    color: white;
+  }
+
+  .top-container .row:nth-child(3) {
+    height: 300px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .top-container .row:nth-child(3) img {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    left: 0%;
+    top: 0%;
+    margin: 0px;
+  }
+
+  .ishop-img {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 3%;
+  }
+
+  .close i {
+    display: initial;
+    font-size: xx-large;
+  }
+  .top-container .row:nth-child(4) {
+    background-color: yellow;
+    text-align: center;
+    margin-top: 0px;
+    display: block;
+    align-items: center;
+  }
+
+  .menu-seller {
+    display: none;
+  }
+
+  .top-container .row:nth-child(5) {
+    width: 100%;
+  }
+  .top-container .row:nth-child(5).box {
+    display: block;
+    width: 100%;
+  }
+
+  .container:nth-child(6){
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 100%;
+
+  }
+  .lord{
+    display: block;
+    width: 100%;
+  }
+
+}

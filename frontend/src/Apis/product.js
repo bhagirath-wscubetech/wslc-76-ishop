@@ -80,4 +80,24 @@ const updateProduct = (id, data) => {
         }
     )
 }
-export { addProduct, getProduct, deleteProduct, updateProduct };
+
+const getCategoryProduct = (categoryId) => {
+    return new Promise(
+        (resolve, reject) => {
+            let apiUrl = process.env.REACT_APP_API_BASE_URL + moduleUrl + "/category/" + categoryId;
+            axios.get(apiUrl)
+                .then(
+                    (success) => {
+                        resolve(success);
+                    }
+                )
+                .catch(
+                    (error) => {
+                        reject(error);
+                    }
+                )
+        }
+    )
+}
+
+export { addProduct, getProduct, deleteProduct, updateProduct, getCategoryProduct };
