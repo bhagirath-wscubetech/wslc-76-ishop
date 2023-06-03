@@ -1,7 +1,7 @@
 import axios from "axios";
 // process.env.BASE_URL;
-const moduleUrl = "/product";
-const addProduct = (data) => {
+const moduleUrl = "/color";
+const addColor = (data) => {
     return new Promise(
         (resolve, reject) => {
             axios.post(
@@ -21,7 +21,7 @@ const addProduct = (data) => {
     )
 }
 
-const getProduct = (id = null) => {
+const getColor = (id = null) => {
     return new Promise(
         (resolve, reject) => {
             let apiUrl = process.env.REACT_APP_API_BASE_URL + moduleUrl;
@@ -43,7 +43,7 @@ const getProduct = (id = null) => {
     )
 }
 
-const deleteProduct = (id, imgName) => {
+const deleteColor = (id, imgName) => {
     return new Promise(
         (resolve, reject) => {
             axios.delete(process.env.REACT_APP_API_BASE_URL + moduleUrl + "/" + id + "/" + imgName)
@@ -61,7 +61,7 @@ const deleteProduct = (id, imgName) => {
     )
 }
 
-const updateProduct = (id, data) => {
+const updateColor = (id, data) => {
     return new Promise(
         (resolve, reject) => {
             axios.post(
@@ -80,64 +80,4 @@ const updateProduct = (id, data) => {
         }
     )
 }
-
-const getCategoryProduct = (categoryId) => {
-    return new Promise(
-        (resolve, reject) => {
-            let apiUrl = process.env.REACT_APP_API_BASE_URL + moduleUrl + "/category/" + categoryId;
-            axios.get(apiUrl)
-                .then(
-                    (success) => {
-                        resolve(success);
-                    }
-                )
-                .catch(
-                    (error) => {
-                        reject(error);
-                    }
-                )
-        }
-    )
-}
-const getColorProduct = (colorId) => {
-    return new Promise(
-        (resolve, reject) => {
-            let apiUrl = process.env.REACT_APP_API_BASE_URL + moduleUrl + "/color/" + colorId;
-            axios.get(apiUrl)
-                .then(
-                    (success) => {
-                        resolve(success);
-                    }
-                )
-                .catch(
-                    (error) => {
-                        reject(error);
-                    }
-                )
-        }
-    )
-}
-
-const filterProduct = (filter) => {
-    return new Promise(
-        (resolve, reject) => {
-            let apiUrl = process.env.REACT_APP_API_BASE_URL + moduleUrl + "/filter";
-            axios.post(
-                apiUrl,
-                filter
-            )
-                .then(
-                    (success) => {
-                        resolve(success);
-                    }
-                )
-                .catch(
-                    (error) => {
-                        reject(error);
-                    }
-                )
-        }
-    )
-}
-
-export { addProduct, getProduct, deleteProduct, updateProduct, getCategoryProduct, getColorProduct, filterProduct };
+export { addColor, getColor, deleteColor, updateColor };

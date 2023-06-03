@@ -2,32 +2,15 @@ import React from 'react'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import Header from '../../Components/Website/Header';
 import BestSeller from '../../Components/Website/BestSeller';
-import "../../style.css";
-import "../../responsive.css";
+import TopBar from '../../Components/Website/TopBar';
 export default function Index() {
   return (
     <div className="main-container top-container">
       <div className="container-fluid">
-        <div className="row">
-          <div className="left-top">
-            EN
-            <i className="fa fa-caret-down" aria-hidden="true" />
-            &nbsp;&nbsp;<span>$</span>&nbsp;
-            <i className="fa fa-caret-down" aria-hidden="true" />
-          </div>
-          <div className="right-top">
-            <img src="images/profile_icon.svg" alt="" />
-            <span>My Profile</span>&nbsp;&nbsp;
-            <img src="images/bag_icon.svg" alt="" />
-            <span>2 Items</span>
-            <span>$998</span>
-            &nbsp;&nbsp;
-            <img src="images/search_icon.svg" alt="" />
-          </div>
-        </div>
+        <TopBar />
         <div className="row">
           <div className="ishop-img">
             <img src="images/iSHOP Logo.svg" alt="image" />
@@ -37,7 +20,9 @@ export default function Index() {
           </div>
           <div className="menu" id="main-menu">
             <div>
-              <a href="index.html">Home</a>
+              <Link to="/">
+                Home
+              </Link>
             </div>
             <div>
               <a href="index2.html">Store</a>

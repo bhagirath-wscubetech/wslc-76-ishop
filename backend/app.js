@@ -2,6 +2,8 @@
 const express = require('express');
 const CategoryRouter = require('./routes/category.js');
 const ProductRouter = require('./routes/product.js');
+const ColorRouter = require('./routes/color.js');
+const UserRouter = require('./routes/user.js');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -14,6 +16,8 @@ app.use(express.static(__dirname + '/public'));
 
 app.use("/category", CategoryRouter);
 app.use("/product", ProductRouter);
+app.use("/color", ColorRouter);
+app.use("/user", UserRouter);
 
 
 // ------------

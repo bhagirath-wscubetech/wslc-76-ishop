@@ -5,12 +5,14 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { MainContext } from '../../../Context/ContextHolder';
 
 import { getCategory } from '../../../Apis/category';
+import { getColor } from '../../../Apis/color';
 import { addProduct } from '../../../Apis/product';
 export default function Add() {
   const { notify } = useContext(MainContext)
 
   const descBox = useRef();
   const [category, setCategory] = useState([]);
+  const [colors, setColors] = useState([]);
   const submitHandler = (event) => {
     event.preventDefault();
     const image = event.target.image.files[0];
@@ -18,6 +20,7 @@ export default function Add() {
     formData.append("name", event.target.name.value);
     formData.append("description", event.target.description.value);
     formData.append("category", event.target.category.value);
+    formData.append("color", event.target.color.value);
     formData.append("o_price", event.target.o_price.value);
     formData.append("d_price", event.target.d_price.value);
     formData.append("image", image);
@@ -48,10 +51,22 @@ export default function Add() {
             setCategory([]);
           }
         )
+      getColor()
+        .then(
+          (success) => {
+            setColors(success.data.color);
+          }
+        )
+        .catch(
+          (error) => {
+            setColors([]);
+          }
+        )
     },
     []
   )
 
+  console.log(colors);
   return (
     <div className='container mt-5'>
       <div className="card p-2 rounded-1">
@@ -66,7 +81,7 @@ export default function Add() {
                 <label htmlFor="" className="form-label">Name</label>
                 <input type="text" name='name' className="form-control" />
               </div>
-              <div className="col-4 mb-3">
+              <div className="col-6 mb-3">
                 <label htmlFor="" className="form-label">Category</label>
                 <select name="category" id="" className='form-control'>
                   <option value={null}>Select a category</option>
@@ -79,11 +94,24 @@ export default function Add() {
                   }
                 </select>
               </div>
-              <div className="col-4 mb-3">
+              <div className="col-6 mb-3">
+                <label htmlFor="" className="form-label">Colors</label>
+                <select name="color" id="" className='form-control'>
+                  <option value={null}>Select a color</option>
+                  {
+                    colors.map(
+                      (color, index) => {
+                        return <option key={index} value={color._id}>{color.name}</option>
+                      }
+                    )
+                  }
+                </select>
+              </div>
+              <div className="col-6 mb-3">
                 <label htmlFor="" className="form-label">Original Price</label>
                 <input type="number" name='o_price' min={1} className='form-control' />
               </div>
-              <div className="col-4 mb-3">
+              <div className="col-6 mb-3">
                 <label htmlFor="" className="form-label">Discounted Price</label>
                 <input type="number" name='d_price' className='form-control' />
               </div>

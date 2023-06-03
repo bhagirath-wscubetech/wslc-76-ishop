@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { getCategory } from '../../Apis/category';
 import { getCategoryProduct, getProduct } from '../../Apis/product';
-
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../Features/CartReducer";
 export default function BestSeller() {
     const [categories, setCategory] = useState([]);
     const [products, setProduct] = useState([]);
@@ -75,9 +76,10 @@ export default function BestSeller() {
                     </div>
                     {
                         categories.map(
-                            (category) => {
+                            (category, i) => {
                                 return (
                                     <div
+                                        key={i}
                                         className={active == category._id ? 'active' : ''}
                                         onClick={
                                             () => categoryChangeHandler(category._id)
@@ -97,9 +99,9 @@ export default function BestSeller() {
                         <>
                             {
                                 products.map(
-                                    (data) => {
+                                    (data, i) => {
                                         return (
-                                            <Box {...data} path={productImagePath} />
+                                            <Box key={i} {...data} path={productImagePath} />
                                         );
                                     }
                                 )
@@ -114,6 +116,9 @@ export default function BestSeller() {
 
 
 const Box = (props) => {
+
+    const dispatch = useDispatch();
+
     return (
         <div className="box">
             <div className="hot">Hot</div>
@@ -155,6 +160,9 @@ const Box = (props) => {
                     <span style={{ color: "#c1c8ce", textDecoration: "line-through" }}>
                         $ {props.original_price}
                     </span>
+                </div>
+                <div>
+                    <button onClick={() => dispatch(addToCart(props))} className='mt-1 btn btn-primary'>Cart</button>
                 </div>
             </div>
         </div>

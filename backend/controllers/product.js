@@ -13,6 +13,7 @@ class ProductController {
                             original_price: data.o_price,
                             discounted_price: data.d_price,
                             category_id: data.category,
+                            color_id: data.color,
                             image: data.image
                         }
                     )
@@ -145,13 +146,90 @@ class ProductController {
     }
 
     categoryProduct = (cid) => {
-    console.log(cid);
+        console.log(cid);
         return new Promise(
             async (resolve, rejected) => {
                 try {
                     let data = await Product.find({
                         'category_id': cid
                     }).sort({
+                        _id: 'desc'
+                    });
+                    resolve({
+                        status: 1,
+                        product: data,
+                        path: "http://localhost:5000/uploads/product/",
+                        msg: `Total ${data.length} records found`
+                    });
+
+                }
+                catch (err) {
+                    rejected({
+                        status: 0,
+                        msg: err.message + "Interal server error"
+                    });
+                }
+            }
+        )
+    }
+
+    colorProduct = (cid) => {
+        return new Promise(
+            async (resolve, rejected) => {
+                try {
+                    let data = await Product.find({
+                        'color_id': cid,
+                        'original_price': {
+                            $gt: "500",
+                            $lt: "1000"
+                        }
+                    }).sort({
+                        _id: 'desc'
+                    });
+                    resolve({
+                        status: 1,
+                        product: data,
+                        path: "http://localhost:5000/uploads/product/",
+                        msg: `Total ${data.length} records found`
+                    });
+
+                }
+                catch (err) {
+                    rejected({
+                        status: 0,
+                        msg: err.message + "Interal server error"
+                    });
+                }
+            }
+        )
+    }
+    filterProduct = (filter) => {
+        return new Promise(
+            async (resolve, rejected) => {
+                let filterData = {};
+                if (filter.category !== null) {
+                    filterData = {
+                        ...filterData,
+                        category_id: filter.category
+                    }
+                }
+                if (filter.color !== null) {
+                    filterData = {
+                        ...filterData,
+                        color_id: filter.color
+                    }
+                }
+                if (filter.from != 0 && filter.to != 0) {
+                    filterData = {
+                        ...filterData,
+                        original_price: {
+                            $gt: filter.from,
+                            $lt: filter.to,
+                        }
+                    }
+                }
+                try {
+                    let data = await Product.find(filterData).sort({
                         _id: 'desc'
                     });
                     resolve({

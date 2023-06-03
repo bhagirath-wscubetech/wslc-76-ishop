@@ -35,6 +35,36 @@ Router.get(
         )
     }
 )
+Router.get(
+    "/color/:cid",
+    (req, res) => {
+        const response = new ProductController().colorProduct(req.params.cid);
+        response.then(
+            (success) => {
+                res.send(success)
+            }
+        ).catch(
+            (error) => {
+                res.send(error)
+            }
+        )
+    }
+)
+Router.post(
+    "/filter",
+    (req, res) => {
+        const response = new ProductController().filterProduct(req.body);
+        response.then(
+            (success) => {
+                res.send(success)
+            }
+        ).catch(
+            (error) => {
+                res.send(error)
+            }
+        )
+    }
+)
 Router.post(
     "/",
     fileUpload(

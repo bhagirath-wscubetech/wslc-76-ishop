@@ -39,18 +39,32 @@ export default function SideMenu() {
                     path: "/admin/product"
                 }
             ]
+        },
+        {
+            name: "Color",
+            multi: true,
+            items: [
+                {
+                    route: 'Add',
+                    path: "/admin/color/add"
+                },
+                {
+                    route: 'View',
+                    path: "/admin/color"
+                }
+            ]
         }
     ]
 
-    useEffect(
-        () => {
-            console.log(admin);
-            if (admin == false) {
-                navigate('/admin/login');
-            }
-        },
-        []
-    )
+    // useEffect(
+    //     () => {
+    //         console.log(admin);
+    //         if (admin == false) {
+    //             navigate('/admin/login');
+    //         }
+    //     },
+    //     []
+    // )
 
 
     return (

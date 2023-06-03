@@ -19,6 +19,10 @@ const ProductSchema = new mongoose.Schema(
             type: "String",
             max: 120
         },
+        color_id: {
+            type: "String",
+            max: 120
+        },
         image: {
             type: "String"
         }
